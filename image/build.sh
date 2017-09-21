@@ -7,8 +7,8 @@ export HUB_REPO="genti/savethegalaxy"
 export VERSION="0.1"
 
 echo "Download and extract caddy ..."
-wget https://github.com/mholt/caddy/releases/download/v${CADDY_VERSION}/caddy_v${CADDY_VERSION}_linux_arm64.tar.gz
-tar -zxvf caddy_v${CADDY_VERSION}_linux_arm64.tar.gz caddy
+wget https://github.com/mholt/caddy/releases/download/v${CADDY_VERSION}/caddy_v${CADDY_VERSION}_linux_amd64.tar.gz
+tar -zxvf caddy_v${CADDY_VERSION}_linux_amd64.tar.gz caddy
 
 echo "Building caddy docker image ..."
 docker build -t ${HUB_REPO}:v${VERSION} .
