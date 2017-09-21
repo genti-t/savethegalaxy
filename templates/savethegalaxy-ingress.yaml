@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: savethegalaxy
+  namespace: {{ namespace }}
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: {{ savethegalaxy.domain }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: savethegalaxy
+          servicePort: http

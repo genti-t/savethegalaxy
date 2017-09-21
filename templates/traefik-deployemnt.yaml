@@ -1,0 +1,31 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: traefik-ingress-lb
+  namespace: kube-system
+spec:
+  replicas: {{ traefik.replicas }}
+  template:
+    metadata:
+      labels:
+        k8s-app: traefik-ingress-lb
+        name: traefik-ingress-lb
+    spec:
+      terminationGracePeriodSeconds: 60
+      hostNetwork: true
+      containers:
+        - image: {{ traefik.image }}
+          imagePullPolicy: {{ traefik.imagePullPolicy }}
+          name: traefik-ingress-lb
+          ports:
+            - containerPort: 80
+            - containerPort: 8083
+          args:
+            - --configfile=/config/traefik.toml
+          volumeMounts:
+            - mountPath: "/etc/traefik"
+              name: "traefik-config"
+      volumes:
+        - name: traefik-config
+          configMap:
+            name: traefik-conf

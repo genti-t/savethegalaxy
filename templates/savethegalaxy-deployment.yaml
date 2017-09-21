@@ -1,0 +1,32 @@
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: savethegalaxy
+  namespace: {{ namespace }}
+  labels:
+    app: savethegalaxy
+spec:
+  replicas: {{ savethegalaxy.replicas }}
+  selector:
+    matchLabels:
+      app: savethegalaxy
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: savethegalaxy
+    spec:
+      containers:
+      - name: savethegalaxy
+        image: {{ savethegalaxy.image }}
+        imagePullPolicy: {{ savethegalaxy.imagePullPolicy }}
+        ports:
+          - name: http
+            containerPort: 80
+            protocol: TCP
