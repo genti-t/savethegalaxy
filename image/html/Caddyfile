@@ -1,0 +1,4 @@
+0.0.0.0:80
+ext .html
+log stdout
+errors stdout
